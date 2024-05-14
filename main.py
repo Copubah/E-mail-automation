@@ -5,18 +5,23 @@ import smtplib
 import os
 
 
-## Setting up the connection server
-smtp = smtplib.SMTP('smtp.gmail.com', 587)
-smtp.ehlo()
-smtp.starttls()
-smtp.login('charlesopuba@gmail.com', 'password')
+## Setting up the email addresses
+from_address='copubah@gmail.com'
+to_address='charlesopuba@gmail.com'
+msg=MIMEMultipart()
+msg['From']=from_address
+msg['To']=",".join(to_address)
+msg['subject']='Hi there'
 
-## sending the message
+body='This is Charles'
+msg.attach(MIMEText(body,'plain'))
+email=""
+password=""
 
-def message(subject="Test",
-            text="", img=None,
-            attachment=None):
-    msg= MIMEMultipart()
-
-    ## SUBJECT
-    msg['subject']
+mail=smtplib.SMTP('smtp.gmail.com', 587)
+mail.ehlo()
+mail.starttls()
+mail.login(email,password)
+text=msg.as_string()
+mail.sendmail(from_address,to_address,text)
+mail.quit()
